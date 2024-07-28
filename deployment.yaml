@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-aplicacion-grg
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mi-aplicacion-grg
+  template:
+    metadata:
+      labels:
+        app: mi-aplicacion-grg
+    spec:
+      containers:
+      - name: mi-aplicacion-grg
+        image: ykzagorgonita/desafio13:v3
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: my-pvc-volume-grg
+          mountPath: /var/www/html/
+      volumes:
+      - name: my-pvc-volume-grg
+        persistentVolumeClaim:
+          claimName: my-pvc-grg
